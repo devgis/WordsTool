@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -40,11 +41,11 @@ namespace WordsTool
             {
                 string[] sarrs = File.ReadAllLines(tbPath.Text, Encoding.Default);
 
-                Dictionary<string,string> allwords = new Dictionary<string, string>();
+                Dictionary<string, string> allwords = new Dictionary<string, string>();
                 Dictionary<string, string> notTrans = new Dictionary<string, string>();
                 foreach (string srow in sarrs)
                 {
-                    if(!string.IsNullOrEmpty(srow))
+                    if (!string.IsNullOrEmpty(srow))
                     {
                         string[] words = srow.Split(' ');
                         if (words != null && words.Length > 0)
@@ -74,9 +75,29 @@ namespace WordsTool
                     }
                     else
                     {
-                        if(Regex.IsMatch(key, RegexStr)&& !notTrans.ContainsKey(key))
+                        string prototype = string.Empty;
+                        if (key.EndsWith("ing"))
                         {
-                            notTrans.Add(key, key);
+                            prototype = GetRemoveSuffixString(key, "ing");
+                        }
+                        else if (key.EndsWith("s"))
+                        {
+                            prototype = GetRemoveSuffixString(key, "s");
+                        }
+                        else if (key.EndsWith("ed"))
+                        {
+                            prototype = GetRemoveSuffixString(key, "ed");
+                        }
+                        if (!string.IsNullOrEmpty(prototype)&& dicAllwords.ContainsKey(prototype))
+                        {
+                            listExists.Add(dicAllwords[prototype]);
+                        }
+                        else
+                        {
+                            if (Regex.IsMatch(key, RegexStr) && !notTrans.ContainsKey(key))
+                            {
+                                notTrans.Add(key, key);
+                            }
                         }
                     }
                 }
@@ -94,7 +115,7 @@ namespace WordsTool
                     sfd.Filter = "Excel File (*.xls)|*.xls";
                     sfd.RestoreDirectory = true;
                     if (sfd.ShowDialog() == DialogResult.OK)
-                        OutExcel(listExists,sfd.FileName);
+                        OutExcel(listExists, sfd.FileName);
                 }
             }
             else
@@ -109,6 +130,29 @@ namespace WordsTool
                 }
             }
         }
+
+        ///<summary>
+        /// 移除前缀字符串
+        ///</summary>
+        ///<param name="val">原字符串</param>
+        ///<param name="str">前缀字符串</param>
+        ///<returns></returns>
+        private string GetRemovePrefixString(string val, string str)
+        {
+            string strRegex = @"^(" + str + ")";
+            return Regex.Replace(val, strRegex, "");
+        }
+        ///<summary>
+        /// 移除后缀字符串
+        ///</summary>
+        ///<param name="val">原字符串</param>
+        ///<param name="str">后缀字符串</param>
+        ///<returns></returns>
+        private string GetRemoveSuffixString(string val, string str)
+        {
+            string strRegex = @"(" + str + ")" + "$";
+            return Regex.Replace(val, strRegex, "");
+        }
         private void OutCSV(List<EnglishWord> list, string filepath)
         {
             if (list == null || list.Count < 0)
@@ -120,13 +164,13 @@ namespace WordsTool
             sb.Append("Word,Prounce_US,Prounce_UK,Trans\r\n");
             foreach (EnglishWord word in list)
             {
-                sb.AppendFormat("{0},{1},{2},{3}\r\n","\""+word.word??""+ "\"", "\"" + word.prounce_us??"" + "\"", "\"" + word.prounce_uk ?? "" + "\"", "\"" + word.trans ?? "" + "\"");
+                sb.AppendFormat("{0},{1},{2},{3}\r\n", "\"" + word.word ?? "" + "\"", "\"" + word.prounce_us ?? "" + "\"", "\"" + word.prounce_uk ?? "" + "\"", "\"" + word.trans ?? "" + "\"");
             }
-            File.WriteAllText(filepath, sb.ToString(),Encoding.UTF8);
+            File.WriteAllText(filepath, sb.ToString(), Encoding.UTF8);
             MessageHelper.ShowInfo("保存成功！");
         }
 
-        private void OutExcel (List<EnglishWord> list, string filepath)
+        private void OutExcel(List<EnglishWord> list, string filepath)
         {
             if (list == null || list.Count < 0)
             {
@@ -137,7 +181,7 @@ namespace WordsTool
             var workbook = new HSSFWorkbook();
             //创建表
             var table = workbook.CreateSheet("words");
-            
+
             ICellStyle style = workbook.CreateCellStyle();
             style.BorderBottom = NPOI.SS.UserModel.BorderStyle.Thin;
             style.BorderLeft = NPOI.SS.UserModel.BorderStyle.Thin;
@@ -147,7 +191,7 @@ namespace WordsTool
 
 
             var row = table.CreateRow(0);
-            ICell cell0= row.CreateCell(0);
+            ICell cell0 = row.CreateCell(0);
             cell0.SetCellValue("Word");
             cell0.CellStyle = style;
             ICell cell1 = row.CreateCell(1);
@@ -165,10 +209,10 @@ namespace WordsTool
             {
                 table.AutoSizeColumn(i);
                 row = table.CreateRow(i);
-                cell0=row.CreateCell(0);
+                cell0 = row.CreateCell(0);
                 cell0.SetCellValue(list[i - 1].word);
                 cell0.CellStyle = style;
-                cell1 =row.CreateCell(1);
+                cell1 = row.CreateCell(1);
                 cell1.SetCellValue(list[i - 1].prounce_us);
                 cell1.CellStyle = style;
                 cell2 = row.CreateCell(2);
@@ -189,6 +233,7 @@ namespace WordsTool
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            this.dgvList.AutoGenerateColumns = false;
             InitData();
         }
         Dictionary<string, EnglishWord> dicAllwords = new Dictionary<string, EnglishWord>();
@@ -196,27 +241,37 @@ namespace WordsTool
         {
             string sql = "select * from word";
             DataTable dt = SqliteHelper.GetDataTable(sql);
-            if(dt!=null&& dt.Rows.Count>0)
+            if (dt != null && dt.Rows.Count > 0)
             {
                 List<EnglishWord> list = EnglishWord.DataTableToList(dt);
                 if (list != null && list.Count > 0)
                 {
-                    foreach(EnglishWord word in list)
+                    foreach (EnglishWord word in list)
                     {
-                        if (word != null && !string.IsNullOrEmpty(word.word)&&!dicAllwords.ContainsKey(word.word))
+                        if (word != null && !string.IsNullOrEmpty(word.word) && !dicAllwords.ContainsKey(word.word))
                         {
                             dicAllwords.Add(word.word, word);
                         }
                     }
                 }
             }
-            
+
         }
 
         private void dgvList_RowPostPaint(object sender, DataGridViewRowPostPaintEventArgs e)
         {
             SolidBrush b = new SolidBrush(this.dgvList.RowHeadersDefaultCellStyle.ForeColor);
             e.Graphics.DrawString((e.RowIndex + 1).ToString(System.Globalization.CultureInfo.CurrentUICulture), this.dgvList.DefaultCellStyle.Font, b, e.RowBounds.Location.X, e.RowBounds.Location.Y + 4);
+        }
+
+        private void btUpdate_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/devgis/WordsTool/releases");
+        }
+
+        private void btAbout_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://github.com/devgis/WordsTool");
         }
     }
 }

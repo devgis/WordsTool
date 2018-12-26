@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.cbCSV = new System.Windows.Forms.CheckBox();
             this.btAnalyze = new System.Windows.Forms.Button();
             this.btOpen = new System.Windows.Forms.Button();
             this.tbPath = new System.Windows.Forms.TextBox();
@@ -38,7 +40,8 @@
             this.CProunce_US = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CProunce_UK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTrans = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.cbCSV = new System.Windows.Forms.CheckBox();
+            this.btUpdate = new System.Windows.Forms.Button();
+            this.btAbout = new System.Windows.Forms.Button();
             this.tlpMain.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
@@ -64,6 +67,8 @@
             // 
             // panel1
             // 
+            this.panel1.Controls.Add(this.btAbout);
+            this.panel1.Controls.Add(this.btUpdate);
             this.panel1.Controls.Add(this.cbCSV);
             this.panel1.Controls.Add(this.btAnalyze);
             this.panel1.Controls.Add(this.btOpen);
@@ -73,6 +78,18 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(784, 24);
             this.panel1.TabIndex = 0;
+            // 
+            // cbCSV
+            // 
+            this.cbCSV.AutoSize = true;
+            this.cbCSV.Checked = true;
+            this.cbCSV.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.cbCSV.Location = new System.Drawing.Point(383, 1);
+            this.cbCSV.Name = "cbCSV";
+            this.cbCSV.Size = new System.Drawing.Size(69, 21);
+            this.cbCSV.TabIndex = 3;
+            this.cbCSV.Text = "输出csv";
+            this.cbCSV.UseVisualStyleBackColor = true;
             // 
             // btAnalyze
             // 
@@ -150,17 +167,27 @@
             this.cTrans.Name = "cTrans";
             this.cTrans.ReadOnly = true;
             // 
-            // cbCSV
+            // btUpdate
             // 
-            this.cbCSV.AutoSize = true;
-            this.cbCSV.Checked = true;
-            this.cbCSV.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.cbCSV.Location = new System.Drawing.Point(383, 1);
-            this.cbCSV.Name = "cbCSV";
-            this.cbCSV.Size = new System.Drawing.Size(69, 21);
-            this.cbCSV.TabIndex = 3;
-            this.cbCSV.Text = "输出csv";
-            this.cbCSV.UseVisualStyleBackColor = true;
+            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btUpdate.Location = new System.Drawing.Point(709, 0);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btUpdate.TabIndex = 4;
+            this.btUpdate.Text = "更新";
+            this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
+            // 
+            // btAbout
+            // 
+            this.btAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAbout.Location = new System.Drawing.Point(629, 0);
+            this.btAbout.Name = "btAbout";
+            this.btAbout.Size = new System.Drawing.Size(75, 23);
+            this.btAbout.TabIndex = 5;
+            this.btAbout.Text = "关于";
+            this.btAbout.UseVisualStyleBackColor = true;
+            this.btAbout.Click += new System.EventHandler(this.btAbout_Click);
             // 
             // MainForm
             // 
@@ -168,6 +195,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tlpMain);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "WordsTool";
@@ -193,6 +221,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CProunce_UK;
         private System.Windows.Forms.DataGridViewTextBoxColumn cTrans;
         private System.Windows.Forms.CheckBox cbCSV;
+        private System.Windows.Forms.Button btAbout;
+        private System.Windows.Forms.Button btUpdate;
     }
 }
 
