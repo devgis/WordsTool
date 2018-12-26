@@ -23,3 +23,5 @@ C:\Users\liyafei\Desktop\WordsTool\WordsTool\WordsTool\bin\Debug\NPOI.OOXML.dll
 C:\Users\liyafei\Desktop\WordsTool\WordsTool\WordsTool\bin\Debug\NPOI.OpenXml4Net.dll
 C:\Users\liyafei\Desktop\WordsTool\WordsTool\WordsTool\bin\Debug\NPOI.OpenXmlFormats.dll
 C:\Users\liyafei\Desktop\WordsTool\WordsTool\WordsTool\obj\Debug\WordsTool.csprojAssemblyReference.cache
+D:\LiYafei\Github\WordsTool\WordsTool\obj\Debug\WordsTool.exe
+D:\LiYafei\Github\WordsTool\WordsTool\obj\Debug\WordsTool.pdb
