@@ -5,4 +5,6 @@
 * 用于学习单词
 * 本代码禁止商业用途 如需要商业用途请联系我
 
+编译报错 请直接使用nuget还原包在线下载所有引用包 包括npoi 和 sqlite库。
+
 联系网站 http://flysoft.taobao.com
