@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tlpMain = new System.Windows.Forms.TableLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btAbout = new System.Windows.Forms.Button();
+            this.btUpdate = new System.Windows.Forms.Button();
             this.cbCSV = new System.Windows.Forms.CheckBox();
             this.btAnalyze = new System.Windows.Forms.Button();
             this.btOpen = new System.Windows.Forms.Button();
@@ -40,8 +42,6 @@
             this.CProunce_US = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CProunce_UK = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cTrans = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.btUpdate = new System.Windows.Forms.Button();
-            this.btAbout = new System.Windows.Forms.Button();
             this.tlpMain.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvList)).BeginInit();
@@ -79,6 +79,28 @@
             this.panel1.Size = new System.Drawing.Size(784, 24);
             this.panel1.TabIndex = 0;
             // 
+            // btAbout
+            // 
+            this.btAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btAbout.Location = new System.Drawing.Point(629, 0);
+            this.btAbout.Name = "btAbout";
+            this.btAbout.Size = new System.Drawing.Size(75, 23);
+            this.btAbout.TabIndex = 5;
+            this.btAbout.Text = "关于";
+            this.btAbout.UseVisualStyleBackColor = true;
+            this.btAbout.Click += new System.EventHandler(this.btAbout_Click);
+            // 
+            // btUpdate
+            // 
+            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btUpdate.Location = new System.Drawing.Point(709, 0);
+            this.btUpdate.Name = "btUpdate";
+            this.btUpdate.Size = new System.Drawing.Size(75, 23);
+            this.btUpdate.TabIndex = 4;
+            this.btUpdate.Text = "更新";
+            this.btUpdate.UseVisualStyleBackColor = true;
+            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
+            // 
             // cbCSV
             // 
             this.cbCSV.AutoSize = true;
@@ -86,9 +108,9 @@
             this.cbCSV.CheckState = System.Windows.Forms.CheckState.Checked;
             this.cbCSV.Location = new System.Drawing.Point(383, 1);
             this.cbCSV.Name = "cbCSV";
-            this.cbCSV.Size = new System.Drawing.Size(69, 21);
+            this.cbCSV.Size = new System.Drawing.Size(104, 21);
             this.cbCSV.TabIndex = 3;
-            this.cbCSV.Text = "输出csv";
+            this.cbCSV.Text = "输出Excel文件";
             this.cbCSV.UseVisualStyleBackColor = true;
             // 
             // btAnalyze
@@ -166,28 +188,6 @@
             this.cTrans.HeaderText = "Trans";
             this.cTrans.Name = "cTrans";
             this.cTrans.ReadOnly = true;
-            // 
-            // btUpdate
-            // 
-            this.btUpdate.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btUpdate.Location = new System.Drawing.Point(709, 0);
-            this.btUpdate.Name = "btUpdate";
-            this.btUpdate.Size = new System.Drawing.Size(75, 23);
-            this.btUpdate.TabIndex = 4;
-            this.btUpdate.Text = "更新";
-            this.btUpdate.UseVisualStyleBackColor = true;
-            this.btUpdate.Click += new System.EventHandler(this.btUpdate_Click);
-            // 
-            // btAbout
-            // 
-            this.btAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btAbout.Location = new System.Drawing.Point(629, 0);
-            this.btAbout.Name = "btAbout";
-            this.btAbout.Size = new System.Drawing.Size(75, 23);
-            this.btAbout.TabIndex = 5;
-            this.btAbout.Text = "关于";
-            this.btAbout.UseVisualStyleBackColor = true;
-            this.btAbout.Click += new System.EventHandler(this.btAbout_Click);
             // 
             // MainForm
             // 
