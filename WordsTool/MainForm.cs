@@ -75,22 +75,39 @@ namespace WordsTool
                     }
                     else
                     {
-                        string prototype = string.Empty;
+                        string prototype1 = string.Empty;
+                        string prototype2 = string.Empty;
                         if (key.EndsWith("ing"))
                         {
-                            prototype = GetRemoveSuffixString(key, "ing");
+                            prototype1 = GetRemoveSuffixString(key, "ing");
                         }
                         else if (key.EndsWith("s"))
                         {
-                            prototype = GetRemoveSuffixString(key, "s");
+                            prototype1 = GetRemoveSuffixString(key, "s");
+                            prototype2 = GetRemoveSuffixString(key, "es");
                         }
                         else if (key.EndsWith("ed"))
                         {
-                            prototype = GetRemoveSuffixString(key, "ed");
+                            prototype1 = GetRemoveSuffixString(key, "ed");
+                            prototype2 = GetRemoveSuffixString(key, "d");
                         }
-                        if (!string.IsNullOrEmpty(prototype)&& dicAllwords.ContainsKey(prototype))
+                        else if (key.EndsWith("er"))
                         {
-                            listExists.Add(dicAllwords[prototype]);
+                            prototype1 = GetRemoveSuffixString(key, "er");
+                            prototype2 = GetRemoveSuffixString(key, "r");
+                        }
+                        else if (key.EndsWith("est"))
+                        {
+                            prototype1 = GetRemoveSuffixString(key, "est");
+                            prototype2 = GetRemoveSuffixString(key, "st");
+                        }
+                        if (!string.IsNullOrEmpty(prototype1) && dicAllwords.ContainsKey(prototype1))
+                        {
+                            listExists.Add(dicAllwords[prototype1]);
+                        }
+                        else if (!string.IsNullOrEmpty(prototype2) && dicAllwords.ContainsKey(prototype2))
+                        {
+                            listExists.Add(dicAllwords[prototype2]);
                         }
                         else
                         {
@@ -105,6 +122,14 @@ namespace WordsTool
                 foreach (string notexistword in notTrans.Keys)
                 {
                     EnglishWord wordnoexist = new EnglishWord() { word = notexistword };
+                    if (notexistword[0] >= 'A' && notexistword[0] <= 'Z')
+                    {
+                        wordnoexist.trans = "人名或者地名";
+                    }
+                    else
+                    {
+                        wordnoexist.trans = "未识别";
+                    }
                     listExists.Add(wordnoexist);
                 }
 
@@ -150,9 +175,17 @@ namespace WordsTool
         ///<returns></returns>
         private string GetRemoveSuffixString(string val, string str)
         {
-            string strRegex = @"(" + str + ")" + "$";
-            return Regex.Replace(val, strRegex, "");
+            if (!val.EndsWith(str))
+            {
+                return string.Empty;
+            }
+            else
+            {
+                string strRegex = @"(" + str + ")" + "$";
+                return Regex.Replace(val, strRegex, "");
+            }
         }
+
         private void OutCSV(List<EnglishWord> list, string filepath)
         {
             if (list == null || list.Count < 0)
@@ -235,6 +268,7 @@ namespace WordsTool
         {
             this.dgvList.AutoGenerateColumns = false;
             InitData();
+            this.Text = "WordsTool(V" + System.Reflection.Assembly.GetExecutingAssembly().GetName().Version+")";
         }
         Dictionary<string, EnglishWord> dicAllwords = new Dictionary<string, EnglishWord>();
         private void InitData()
