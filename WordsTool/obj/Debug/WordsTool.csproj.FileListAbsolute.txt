@@ -46,4 +46,3 @@ D:\LiYafei\Github\WordsTool\WordsTool\bin\Debug\EntityFramework.SqlServer.xml
 D:\LiYafei\Github\WordsTool\WordsTool\bin\Debug\System.Data.SQLite.xml
 D:\LiYafei\Github\WordsTool\WordsTool\bin\Debug\System.Data.SQLite.dll.config
 D:\LiYafei\Github\WordsTool\WordsTool\obj\Debug\WordsTool.csproj.CopyComplete
-D:\LiYafei\Github\WordsTool\WordsTool\obj\Debug\WordsTool.csprojAssemblyReference.cache

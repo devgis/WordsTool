@@ -67,11 +67,18 @@ namespace WordsTool
                 {
                     if (dicAllwords.ContainsKey(key))
                     {
-                        listExists.Add(dicAllwords[key]);
+                        if(!listExists.Contains(dicAllwords[key]))
+                        {
+                            listExists.Add(dicAllwords[key]);
+                        }
+                        
                     }
                     else if (dicAllwords.ContainsKey(key.ToLower()))
                     {
-                        listExists.Add(dicAllwords[key.ToLower()]);
+                        if (!listExists.Contains(dicAllwords[key.ToLower()]))
+                        {
+                            listExists.Add(dicAllwords[key.ToLower()]);
+                        }
                     }
                     else
                     {
@@ -103,11 +110,17 @@ namespace WordsTool
                         }
                         if (!string.IsNullOrEmpty(prototype1) && dicAllwords.ContainsKey(prototype1))
                         {
-                            listExists.Add(dicAllwords[prototype1]);
+                            if (!listExists.Contains(dicAllwords[prototype1]))
+                            {
+                                listExists.Add(dicAllwords[prototype1]);
+                            }
                         }
                         else if (!string.IsNullOrEmpty(prototype2) && dicAllwords.ContainsKey(prototype2))
                         {
-                            listExists.Add(dicAllwords[prototype2]);
+                            if (!listExists.Contains(dicAllwords[prototype2]))
+                            {
+                                listExists.Add(dicAllwords[prototype2]);
+                            }
                         }
                         else
                         {
